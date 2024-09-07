@@ -3,6 +3,7 @@ from .models import Service, Worker, Restaurant
 
 
 class ServiceFilter(django_filters.FilterSet):
+<<<<<<< HEAD
     min_price = django_filters.NumberFilter(field_name="price", lookup_expr='gte', label='Min Price')
     max_price = django_filters.NumberFilter(field_name="price", lookup_expr='lte', label='Max Price')
     region = django_filters.CharFilter(field_name="region__name", lookup_expr='icontains', label='Region')
@@ -41,3 +42,33 @@ class RestaurantFilter(django_filters.FilterSet):
     class Meta:
         model = Restaurant
         fields = ['region', 'district', 'name', 'description', 'subscription', 'min_views_count', 'max_views_count']
+=======
+    min_price = django_filters.NumberFilter(field_name="price", lookup_expr='gte')
+    max_price = django_filters.NumberFilter(field_name="price", lookup_expr='lte')
+    region = django_filters.CharFilter(field_name="region__name", lookup_expr='icontains')
+    district = django_filters.CharFilter(field_name="district__name", lookup_expr='icontains')
+    name = django_filters.CharFilter(field_name="name", lookup_expr='icontains')
+
+    class Meta:
+        model = Service
+        fields = ['min_price', 'max_price', 'region', 'district', 'name']
+
+
+class WorkerFilter(django_filters.FilterSet):
+    service = django_filters.CharFilter(field_name="service__name", lookup_expr='icontains')
+    name = django_filters.CharFilter(field_name="name", lookup_expr='icontains')
+
+    class Meta:
+        model = Worker
+        fields = ['service', 'name']
+
+
+class RestaurantFilter(django_filters.FilterSet):
+    region = django_filters.CharFilter(field_name="region__name", lookup_expr='icontains')
+    district = django_filters.CharFilter(field_name="district__name", lookup_expr='icontains')
+    name = django_filters.CharFilter(field_name="name", lookup_expr='icontains')
+
+    class Meta:
+        model = Restaurant
+        fields = ['region', 'district', 'name']
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6

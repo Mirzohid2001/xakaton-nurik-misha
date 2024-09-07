@@ -1,4 +1,5 @@
 from django.contrib import admin
+<<<<<<< HEAD
 from .models import (Region, District, Service, Worker, Restaurant, Table, Booking, PaymentMethod, Payment, Review,
                      BonusPoint, Location, Article, SupportTicket, SupportResponse, Cashback, ServiceUsageStatistic,
                      ServiceSearchFilter, RestaurantSearchFilter, RealTimeNotification, UserActivityStatistic,
@@ -301,3 +302,26 @@ class SponsorshipAdmin(admin.ModelAdmin):
     search_fields = ('name', 'url')
     list_filter = ('is_active', 'start_date', 'end_date')
     ordering = ('-start_date',)
+=======
+from .models import *
+# Register your models here.
+
+
+admin.site.register(Region)
+admin.site.register(District)
+admin.site.register(Service)
+admin.site.register(Worker)
+admin.site.register(Restaurant)
+admin.site.register(Booking)
+admin.site.register(Notification)
+admin.site.register(Review)
+admin.site.register(Table)
+admin.site.register(Payment)
+admin.site.register(Location)
+admin.site.register(Article)
+admin.site.register(SupportTicket)
+admin.site.register(SupportResponse)
+admin.site.register(BonusPoint)
+admin.site.register(Cashback)
+admin.site.register(ServiceUsageStatistic)
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6

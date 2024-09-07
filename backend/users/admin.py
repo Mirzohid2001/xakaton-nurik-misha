@@ -1,4 +1,5 @@
 from django.contrib import admin
+<<<<<<< HEAD
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, Subscription
 
@@ -29,3 +30,11 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'start_date', 'end_date')
     ordering = ('-start_date',)
 
+=======
+from .models import *
+# Register your models here.
+
+
+admin.site.register(User)
+admin.site.register(Subscription)
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6

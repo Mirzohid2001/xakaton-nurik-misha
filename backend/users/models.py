@@ -29,7 +29,10 @@ class Subscription(models.Model):
     def save(self, *args, **kwargs):
         if self.end_date < self.start_date:
             raise ValueError("End date cannot be earlier than start date")
+<<<<<<< HEAD
         self.is_active = self.is_valid()
+=======
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
         super().save(*args, **kwargs)
 
     def is_valid(self):

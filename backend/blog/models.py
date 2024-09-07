@@ -1,8 +1,12 @@
 from django.db import models
+<<<<<<< HEAD
 from django.utils.translation import gettext_lazy as _
 from users.models import User, Subscription
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
+=======
+from users.models import User, Subscription
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 
 
 # Create your models here.
@@ -106,6 +110,7 @@ class Booking(models.Model):
             return f"{self.user.name} - {self.table.restaurant.name} - Table {self.table.number}"
 
 
+<<<<<<< HEAD
 class PaymentMethod(models.Model):
     name = models.CharField(max_length=255)
     provider = models.CharField(max_length=255)
@@ -119,18 +124,28 @@ class PaymentMethod(models.Model):
         verbose_name_plural = 'Payment Methods'
 
 
+=======
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 class Payment(models.Model):
     user = models.ForeignKey(User, related_name='payments', on_delete=models.CASCADE)
     booking = models.ForeignKey(Booking, related_name='payments', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+<<<<<<< HEAD
     payment_method = models.ForeignKey(PaymentMethod, related_name='payments', on_delete=models.CASCADE)
+=======
+    payment_method = models.CharField(max_length=50, choices=[('credit_card', 'Credit Card'), ('paypal', 'PayPal')])
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
     status = models.CharField(max_length=50,
                               choices=[('pending', 'Pending'), ('completed', 'Completed'), ('failed', 'Failed')])
     transaction_id = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
+<<<<<<< HEAD
         return f"{self.user.name} - {self.amount} - {self.payment_method.name} - {self.status}"
+=======
+        return f"{self.user.name} - {self.amount} - {self.status}"
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 
 
 class Review(models.Model):
@@ -186,9 +201,15 @@ class SupportTicket(models.Model):
 
     user = models.ForeignKey(User, related_name='support_tickets', on_delete=models.CASCADE)
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
+<<<<<<< HEAD
     service = models.ForeignKey(Service, related_name='support_tickets', on_delete=models.CASCADE, null=True,
                                 blank=True)
     restaurant = models.ForeignKey(Restaurant, related_name='support_tickets', on_delete=models.CASCADE, null=True,
+=======
+    service = models.ForeignKey('Service', related_name='support_tickets', on_delete=models.CASCADE, null=True,
+                                blank=True)
+    restaurant = models.ForeignKey('Restaurant', related_name='support_tickets', on_delete=models.CASCADE, null=True,
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
                                    blank=True)
     subject = models.CharField(max_length=255)
     description = models.TextField()
@@ -227,6 +248,7 @@ class ServiceUsageStatistic(models.Model):
 
     def __str__(self):
         return f"{self.service.name} - {self.date} - {self.usage_count} usages"
+<<<<<<< HEAD
 
 
 class ServiceSearchFilter(models.Model):
@@ -453,3 +475,5 @@ class Sponsorship(models.Model):
 
     def __str__(self):
         return self.name
+=======
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6

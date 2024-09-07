@@ -1,14 +1,21 @@
 from rest_framework import serializers
+<<<<<<< HEAD
 from .models import Region, District, Service, Worker, Booking, Table, Restaurant, Notification
 from django.utils import timezone
 import logging
 
 logger = logging.getLogger(__name__)
+=======
+from .models import Region, District, Service, Booking, Notification \
+    , Review, Restaurant, Table, Payment, Worker, Location, Article, SupportTicket, SupportResponse, BonusPoint, \
+    Cashback, ServiceUsageStatistic
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 
 
 class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region
+<<<<<<< HEAD
         fields = ['id', 'name']
         read_only_fields = ['id']
 
@@ -93,12 +100,33 @@ class TableSerializer(serializers.ModelSerializer):
         if not data.get('number'):
             raise serializers.ValidationError("Table number is required.")
         return data
+=======
+        fields = ('id', 'name')
+
+class DistrictSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = ('id', 'name', 'region')
+
+class WorkerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Worker
+        fields = ['id', 'service', 'name', 'photo', 'available_from', 'available_to', 'price']
+
+class ServiceSerializer(serializers.ModelSerializer):
+    workers = WorkerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Service
+        fields = ['id', 'name', 'description', 'image', 'region', 'district', 'price', 'subscription', 'workers', 'views_count']
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 
 
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ['id', 'user', 'service', 'table', 'date', 'time', 'advance_payment', 'status']
+<<<<<<< HEAD
         read_only_fields = ['user', 'advance_payment', 'status']
 
     def validate(self, data):
@@ -113,20 +141,40 @@ class BookingSerializer(serializers.ModelSerializer):
 
 logger = logging.getLogger(__name__)
 
+=======
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
+<<<<<<< HEAD
         fields = '__all__'
 
     def create(self, validated_data):
         logger.info(f"Notification created for user: {validated_data['user']}")
         return super().create(validated_data)
 
+=======
+        fields = ['id', 'user', 'message', 'created_at', 'read']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['id', 'user', 'service', 'restaurant', 'rating', 'comment', 'created_at']
+        extra_kwargs = {
+            'rating': {'min_value': 1, 'max_value': 5}
+        }
+
+class BonusPointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BonusPoint
+        fields = ['id', 'user', 'points', 'reason', 'created_at']
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
+<<<<<<< HEAD
         fields = '__all__'
 
     def validate_name(self, value):
@@ -139,10 +187,14 @@ class RestaurantSerializer(serializers.ModelSerializer):
         logger.info(f"Restaurant created with name: {validated_data['name']}")
         return super().create(validated_data)
 
+=======
+        fields = ['id', 'name', 'description', 'image', 'region', 'district', 'subscription', 'views_count']
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
 
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
+<<<<<<< HEAD
         fields = '__all__'
 
     def validate_number(self, value):
@@ -182,3 +234,44 @@ class BookingSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         logger.info(f"Booking created for user: {validated_data['user'].name}")
         return super().create(validated_data)
+=======
+        fields = ['id', 'restaurant', 'number', 'image', 'is_available']
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ['id', 'user', 'booking', 'amount', 'payment_method', 'status', 'transaction_id', 'created_at']
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ['id', 'user', 'latitude', 'longitude', 'timestamp']
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = ['id', 'title', 'content', 'author', 'created_at', 'updated_at']
+
+class SupportResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SupportResponse
+        fields = ['id', 'ticket', 'user', 'message', 'created_at']
+
+class SupportTicketSerializer(serializers.ModelSerializer):
+    responses = SupportResponseSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = SupportTicket
+        fields = ['id', 'user', 'category', 'service', 'restaurant', 'subject', 'description', 'created_at', 'updated_at', 'status', 'responses']
+
+class CashbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cashback
+        fields = ['id', 'user', 'amount', 'description', 'created_at']
+
+class ServiceUsageStatisticSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceUsageStatistic
+        fields = ['service', 'date', 'usage_count']
+>>>>>>> 2b8606c2c895592ee53b23c08b705f894bc271f6
